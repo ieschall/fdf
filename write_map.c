@@ -6,7 +6,7 @@
 /*   By: ieschall <ieschall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/22 20:15:28 by ieschall          #+#    #+#             */
-/*   Updated: 2020/07/30 22:44:31 by ieschall         ###   ########.fr       */
+/*   Updated: 2020/07/31 22:54:34 by ieschall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ void		write_values(t_u height, t_u width, char *split, t_pnt **map)
 	t_u shift;
 	t_u i;
 
-	map[height][width].x = height;
-	map[height][width].y = width;
+	map[height][width].x = width;
+	map[height][width].y = height;
 	map[height][width].z = ft_atoi(split);
 	i = 0;
 	while (split[i] && !is_comma(split[i]))
@@ -85,15 +85,6 @@ void		check_values(char **split, t_pnt **map, t_u height, t_u width)
 		width += 1;
 		i += 1;
 	}
-	// УДАЛИТЬ
-	j = 0;
-	while (j < width)
-	{
-		printf("%d,%x ", map[height][j].z, map[height][j].color);
-		j += 1;
-	}
-	printf("\n");
-	// УДАЛИТЬ
 }
 
 void		write_map(int fd, t_pnt **map)

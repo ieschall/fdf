@@ -1,4 +1,4 @@
-#include "render.h"
+#include "fdf.h"
 
 void	render_line(t_pnt p0, t_pnt p1, t_img *img)
 {
@@ -14,7 +14,7 @@ void	render_line(t_pnt p0, t_pnt p1, t_img *img)
 	while ((int)p0.x != (int)p1.x || (int)p0.y != (int)p1.y)
 	{
 		if ((p0.x >= 0 && p0.x < img->w) && (p0.y >= 0 && p0.y < img->h))
-			img->pixel_data[(int)p0.x + img->w * (int)p0.y] = 0x00FFFFFF;
+			img->pixel_data[(int)p0.x + img->w * (int)p0.y] = p0.color;
 		error[1] = error[0] * 2;
 		if (error[1] > -(delta[1]))
 		{

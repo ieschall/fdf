@@ -1,6 +1,6 @@
-#include "render.h"
+#include "fdf.h"
 
-static t_pnt	calc_center(t_pnt *p0, t_pnt *p1)
+t_pnt	calc_center(t_pnt *p0, t_pnt *p1)
 {
 	return ((t_pnt){
 		(p0->x + p1->x) / 2.f,
@@ -36,27 +36,27 @@ static void		apply_rotate(t_pnt **temp, t_u w, t_u h, t_var *var)
 	}
 }
 
-void			apply_transform(t_pnt **map, t_u w, t_u h, t_pnt **temp, t_var *var)
+void			apply_transform(t_fdf *fdf)
 {
 	int		i;
 	int		j;
 
 	i = 0;
-	while (i != h)
+	while (i != fdf->h)
 	{
 		j = 0;
-		while (j != w)
+		while (j != fdf->w)
 		{
-			temp[i][j] = map[i][j];
-			if (var->scale_xy || var->scale_z)
-				temp[i][j] = scale(temp[i][j],
-					var->scale_xy ? var->scale_xy : 1,
-						var->scale_z ? var->scale_z : 1);
-			if (var->move_x || var->move_y)
-				temp[i][j] = move(temp[i][j], var->move_x, var->move_y, 0);
+			fdf->map_copy[i][j] = fdf->map[i][j];
+			if (fdf->var.scale_xy || fdf->var.scale_z)
+				fdf->map_copy[i][j] = scale(fdf->map_copy[i][j],
+					fdf->var.scale_xy ? fdf->var.scale_xy : 1,
+						fdf->var.scale_z ? fdf->var.scale_z : 1);
+			if (fdf->var.move_x || fdf->var.move_y)
+				fdf->map_copy[i][j] = move(fdf->map_copy[i][j], fdf->var.move_x, fdf->var.move_y, 0);
 			j += 1;
 		}
 		i += 1;
 	}
-	apply_rotate(temp, w, h, var);
+	apply_rotate(fdf->map_copy, fdf->w, fdf->h, &fdf->var);
 }
