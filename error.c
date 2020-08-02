@@ -6,11 +6,17 @@
 /*   By: ieschall <ieschall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 20:08:02 by ieschall          #+#    #+#             */
-/*   Updated: 2020/07/30 22:40:07 by ieschall         ###   ########.fr       */
+/*   Updated: 2020/08/02 02:20:45 by ieschall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+void	completed(void)
+{
+	ft_putendl_fd("\033[1;32mFDF completed successfully!\033[0m",
+																STDERR_FILENO);
+}
 
 void	error_split(char *line, t_pnt **map)
 {

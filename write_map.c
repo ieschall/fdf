@@ -6,7 +6,7 @@
 /*   By: ieschall <ieschall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/22 20:15:28 by ieschall          #+#    #+#             */
-/*   Updated: 2020/07/31 22:54:34 by ieschall         ###   ########.fr       */
+/*   Updated: 2020/08/01 23:26:20 by ieschall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void		write_values(t_u height, t_u width, char *split, t_pnt **map)
 	i = 0;
 	while (split[i] && !is_comma(split[i]))
 		i += 1;
-	map[height][width].color = is_comma(split[i]) ? 0 : 0xFFFFFF;
+	map[height][width].color = is_comma(split[i]) ? 0 : 0xC600;
 	if (is_comma(split[i]) ? i += 3 : i)
 	{
 		shift = 20;

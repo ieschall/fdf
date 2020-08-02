@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   transform.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ieschall <ieschall@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/08/01 20:35:06 by ieschall          #+#    #+#             */
+/*   Updated: 2020/08/01 21:17:42 by ieschall         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fdf.h"
 
-t_pnt	calc_center(t_pnt *p0, t_pnt *p1)
+t_pnt			calc_center(t_pnt *p0, t_pnt *p1)
 {
 	return ((t_pnt){
 		(p0->x + p1->x) / 2.f,
@@ -9,14 +21,14 @@ t_pnt	calc_center(t_pnt *p0, t_pnt *p1)
 		0});
 }
 
-static void		apply_rotate(t_pnt **temp, t_u w, t_u h, t_var *var)
+static void		apply_rotate(t_pnt **map_copy, t_u w, t_u h, t_var *var)
 {
 	int		i;
 	int		j;
 	t_pnt	center;
 
 	i = 0;
-	center = calc_center(&temp[0][0], &temp[h - 1][w - 1]);
+	center = calc_center(&map_copy[0][0], &map_copy[h - 1][w - 1]);
 	while (i != h)
 	{
 		j = 0;
@@ -24,11 +36,13 @@ static void		apply_rotate(t_pnt **temp, t_u w, t_u h, t_var *var)
 		{
 			if (var->angle_x || var->angle_y || var->angle_z)
 			{
-				temp[i][j] = move(temp[i][j], -center.x, -center.y, -center.z);
-				temp[i][j] = rotate_x(temp[i][j], var->angle_x);
-				temp[i][j] = rotate_y(temp[i][j], var->angle_y);
-				temp[i][j] = rotate_z(temp[i][j], var->angle_z);
-				temp[i][j] = move(temp[i][j], center.x, center.y, center.z);
+				map_copy[i][j] = move(map_copy[i][j], -center.x, -center.y,
+																	-center.z);
+				map_copy[i][j] = rotate_x(map_copy[i][j], var->angle_x);
+				map_copy[i][j] = rotate_y(map_copy[i][j], var->angle_y);
+				map_copy[i][j] = rotate_z(map_copy[i][j], var->angle_z);
+				map_copy[i][j] = move(map_copy[i][j], center.x, center.y,
+																	center.z);
 			}
 			j += 1;
 		}
@@ -53,7 +67,8 @@ void			apply_transform(t_fdf *fdf)
 					fdf->var.scale_xy ? fdf->var.scale_xy : 1,
 						fdf->var.scale_z ? fdf->var.scale_z : 1);
 			if (fdf->var.move_x || fdf->var.move_y)
-				fdf->map_copy[i][j] = move(fdf->map_copy[i][j], fdf->var.move_x, fdf->var.move_y, 0);
+				fdf->map_copy[i][j] = move(fdf->map_copy[i][j],
+										fdf->var.move_x, fdf->var.move_y, 0);
 			j += 1;
 		}
 		i += 1;

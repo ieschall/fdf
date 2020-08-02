@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   transform_func.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ieschall <ieschall@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/08/01 20:35:08 by ieschall          #+#    #+#             */
+/*   Updated: 2020/08/01 20:40:46 by ieschall         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fdf.h"
 
 t_pnt	rotate_x(t_pnt p, float radian)
@@ -27,7 +39,7 @@ t_pnt	rotate_z(t_pnt p, float radian)
 		p.color});
 }
 
-t_pnt move(t_pnt p, float x, float y, float z)
+t_pnt	move(t_pnt p, float x, float y, float z)
 {
 	return ((t_pnt){
 		p.x + x,
